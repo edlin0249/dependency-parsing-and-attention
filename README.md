@@ -74,5 +74,5 @@ Acc = None , Cross Entropy Loss = None
 
 References
 ===
-Improved Neural Machine Translation with Source Syntax [[paper](https://www.ijcai.org/proceedings/2017/0584.pdf)]
-Enhanced LSTM for Natural Language Inference [[paper](https://arxiv.org/pdf/1609.06038.pdf)]
+- Improved Neural Machine Translation with Source Syntax [[paper](https://www.ijcai.org/proceedings/2017/0584.pdf)]
+- Enhanced LSTM for Natural Language Inference [[paper](https://arxiv.org/pdf/1609.06038.pdf)]
