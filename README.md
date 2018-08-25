@@ -30,53 +30,49 @@ jsonlines
 
 Execute
 ===
-## modify an absolute path for stanford corenlp in ***DependencyParsing.py***
+## modify an absolute path for stanford corenlp in ***./src/DependencyParsing.py***
 ```python=5
         self.nlp = StanfordCoreNLP('/home/edlin0249/iis_summer_intern/stanford-corenlp-full-2018-02-27') # modify your absolute path for stanford corenlp
 ```
 
 ## run
 ```
-python3 main.py
+python3 train.py -batch_size 50 -display_interval 1000
 ```
 
 Experiment
 ===
 ## baseline
 ### train
-Acc = None
-Cross Entropy Loss = None
+Acc = None , Cross Entropy Loss = None
 
 ### dev
-Acc = None
-Cross Entropy Loss = None
+Acc = None , Cross Entropy Loss = None
 
 ### test
-Acc = None
-Cross Entropy Loss = None
+Acc = None , Cross Entropy Loss = None
 
 ## w/ dependency parsing
 ### train
-Acc = None
-Cross Entropy Loss = None
+Acc = None , Cross Entropy Loss = None
 
 ### dev
-Acc = None
-Cross Entropy Loss = None
+Acc = None , Cross Entropy Loss = None
 
 ### test
-Acc = None
-Cross Entropy Loss = None
+Acc = None , Cross Entropy Loss = None
 
 ## w/ attention
 ### train
-Acc = None
-Cross Entropy Loss = None
+Acc = None , Cross Entropy Loss = None
 
 ### dev
-Acc = None
-Cross Entropy Loss = None
+Acc = None , Cross Entropy Loss = None
 
 ### test
-Acc = None
-Cross Entropy Loss = None
+Acc = None , Cross Entropy Loss = None
+
+References
+===
+Improved Neural Machine Translation with Source Syntax [[paper](https://www.ijcai.org/proceedings/2017/0584.pdf)]
+Enhanced LSTM for Natural Language Inference [[paper](https://arxiv.org/pdf/1609.06038.pdf)]

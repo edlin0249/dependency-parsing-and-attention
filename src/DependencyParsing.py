@@ -40,4 +40,4 @@ class DependencyParsing:
             line = 'Guangdong University of Foreign Studies is located in Guangzhou.'
             => nlp.word_tokenize : ['Guangdong', 'University', 'of', 'Foreign', 'Studies', 'is', 'located', 'in', 'Guangzhou', '.'] 
         """
-    	return self.nlp.word_tokenize(line)
+        return self.nlp.word_tokenize(line)

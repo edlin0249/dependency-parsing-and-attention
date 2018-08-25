@@ -88,66 +88,67 @@ class Preprocessor:
         onehots[label_idx[labels]] = 1
         return onehots
 
-    def batchnize(self, train_datas_idx, train_datas, batch_size):
-        """
-        This function to batch training datas
+def batchnize(train_datas_idx, train_datas, batch_size):
+    """
+    This generator function to batch training datas
 
-        Args:
-            train_datas_idx : a list of int of random indexes of original training data sequence
-            train_datas : a list of training data
-            batch_size : a int
+    Args:
+        train_datas_idx : a list of int of random indexes of original training data sequence
+        train_datas : a list of training data
+        batch_size : a int
 
-        Returns:
-            train_datas_batch : a list of lists of random batched training datas
+    # Returns:
+    #    train_datas_batch : a list of lists of random batched training datas
 
-        """
-        start = 0
-        end = batch_size
-        train_datas_random = []
-        for idx in train_datas_idx:
-            train_datas_random.append(train_datas[idx])
+    """
+    start = 0
+    end = batch_size
+    train_datas_random = []
+    for idx in train_datas_idx:
+        train_datas_random.append(train_datas[idx])
 
 
-        train_datas_batch = []
-        while start < len(train_datas):
-            train_data_one_batch = train_datas_random[start:end]
-            premises_normal_batch = []
-            premises_preorder_batch = []
-            premises_postorder_batch = []
-            hypotheses_normal_batch = []
-            hypotheses_preorder_batch = []
-            hypotheses_postorder_batch = []
-            premises_preordersentidx_batch = []
-            premises_postordersentidx_batch = []
-            hypotheses_preordersentidx_batch = []
-            hypotheses_postordersentidx_batch = []
-            premises_len_batch = []
-            hypotheses_len_batch = []
-            labels_batch = []
-            for idx, train_data in enumerate(train_data_one_batch):
-                premises_normal_batch.append(train_data[0])
-                premises_preorder_batch.append(train_data[1])
-                premises_postorder_batch.append(train_data[2])
-                hypotheses_normal_batch.append(train_data[3])
-                hypotheses_preorder_batch.append(train_data[4])
-                hypotheses_postorder_batch.append(train_data[5])
-                one_premise_preordersentidx = []
-                one_premise_postordersentidx = []
-                one_hypothese_preordersentidx = []
-                one_hypothese_postordersentidx = []
-                for premise_preordersentidx, premise_postordersentidx, hypothese_preordersentidx, hypothese_postordersentidx in zip(train_data[6], train_data[7], train_data[8], train_data[9]):
-                    one_premise_preordersentidx.append([idx, premise_preordersentidx])
-                    one_premise_postordersentidx.append([idx, premise_postordersentidx])
-                    one_hypothese_preordersentidx.append([idx, hypothese_preordersentidx])
-                    one_hypothese_postordersentidx.append([idx, hypothese_postordersentidx])
-                premises_preordersentidx_batch.append(one_premise_preordersentidx)
-                premises_postordersentidx_batch.append(one_premise_postordersentidx)
-                hypotheses_preordersentidx_batch.append(one_hypothese_preordersentidx)
-                hypotheses_postordersentidx_batch.append(one_hypothese_postordersentidx)
-                premises_len_batch.append(train_data[10][0])
-                hypotheses_len_batch.append(train_data[11][0])
-                labels_batch.append(train_data[12])
-            train_datas_batch.append([premises_normal_batch, premises_preorder_batch, premises_postorder_batch, hypotheses_normal_batch, hypotheses_preorder_batch, hypotheses_postorder_batch, premises_preordersentidx_batch, premises_postordersentidx_batch, hypotheses_preordersentidx_batch, hypotheses_postordersentidx_batch, premises_len_batch, hypotheses_len_batch, labels_batch])
-            start = end
-            end += batch_size    
-        return train_datas_batch
+    train_datas_batch = []
+    while start < len(train_datas):
+        train_data_one_batch = train_datas_random[start:end]
+        premises_normal_batch = []
+        premises_preorder_batch = []
+        premises_postorder_batch = []
+        hypotheses_normal_batch = []
+        hypotheses_preorder_batch = []
+        hypotheses_postorder_batch = []
+        premises_preordersentidx_batch = []
+        premises_postordersentidx_batch = []
+        hypotheses_preordersentidx_batch = []
+        hypotheses_postordersentidx_batch = []
+        premises_len_batch = []
+        hypotheses_len_batch = []
+        labels_batch = []
+        for idx, train_data in enumerate(train_data_one_batch):
+            premises_normal_batch.append(train_data[0])
+            premises_preorder_batch.append(train_data[1])
+            premises_postorder_batch.append(train_data[2])
+            hypotheses_normal_batch.append(train_data[3])
+            hypotheses_preorder_batch.append(train_data[4])
+            hypotheses_postorder_batch.append(train_data[5])
+            one_premise_preordersentidx = []
+            one_premise_postordersentidx = []
+            one_hypothese_preordersentidx = []
+            one_hypothese_postordersentidx = []
+            for premise_preordersentidx, premise_postordersentidx, hypothese_preordersentidx, hypothese_postordersentidx in zip(train_data[6], train_data[7], train_data[8], train_data[9]):
+                one_premise_preordersentidx.append([idx, premise_preordersentidx])
+                one_premise_postordersentidx.append([idx, premise_postordersentidx])
+                one_hypothese_preordersentidx.append([idx, hypothese_preordersentidx])
+                one_hypothese_postordersentidx.append([idx, hypothese_postordersentidx])
+            premises_preordersentidx_batch.append(one_premise_preordersentidx)
+            premises_postordersentidx_batch.append(one_premise_postordersentidx)
+            hypotheses_preordersentidx_batch.append(one_hypothese_preordersentidx)
+            hypotheses_postordersentidx_batch.append(one_hypothese_postordersentidx)
+            premises_len_batch.append(train_data[10][0])
+            hypotheses_len_batch.append(train_data[11][0])
+            labels_batch.append(train_data[12])
+        yield [premises_normal_batch, premises_preorder_batch, premises_postorder_batch, hypotheses_normal_batch, hypotheses_preorder_batch, hypotheses_postorder_batch, premises_preordersentidx_batch, premises_postordersentidx_batch, hypotheses_preordersentidx_batch, hypotheses_postordersentidx_batch, premises_len_batch, hypotheses_len_batch, labels_batch] 
+        # train_datas_batch.append([premises_normal_batch, premises_preorder_batch, premises_postorder_batch, hypotheses_normal_batch, hypotheses_preorder_batch, hypotheses_postorder_batch, premises_preordersentidx_batch, premises_postordersentidx_batch, hypotheses_preordersentidx_batch, hypotheses_postordersentidx_batch, premises_len_batch, hypotheses_len_batch, labels_batch])
+        start = end
+        end += batch_size    
+    # return train_datas_batch

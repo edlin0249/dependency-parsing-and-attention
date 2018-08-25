@@ -5,7 +5,7 @@ from DependencyParsing import DependencyParsing
 from CES import CES
 from HES import HES
 from Voc import Voc
-from Preprocessor import Preprocessor
+from Preprocessor import Preprocessor, batchnize
 from GRU import GRURNN
 import tensorflow as tf
 import tqdm
@@ -29,11 +29,11 @@ def Args():
     parser.add_argument('-data_dir', default='../multinli_0.9/')
     parser.add_argument('-epochs', default=10, type=int, help='epochs for training')
     parser.add_argument('-cell_size', default=128, type=int, help='cell size for GRU')
-    parser.add_argument('-output_size', default=4, type=int, help='output size for output layer')
+    parser.add_argument('-output_size', default=3, type=int, help='output size for output layer')
     parser.add_argument('-batch_size', default=100, type=int, help='batch size for training data')
     parser.add_argument('-embedding_size', default=128, type=int, help='embedding size for word2vec')
     parser.add_argument('-lr', default=0.0001, type=float, help='learning rate for Adam optimizer')
-    parser.add_argument('-display_interval', default=10000, type=int, help='per display_interval times of updating for displaying')
+    parser.add_argument('-display_interval', default=500, type=int, help='per display_interval times of updating for displaying')
     args = parser.parse_args()
     return args
 
@@ -138,8 +138,7 @@ def main(args):
     for epoch in range(args.epochs):
         logging.warning('epoch : {} / {}'.format(epoch+1, args.epochs))
         train_datas_idx = random.sample(range(len(train_datas)), len(train_datas))
-        train_datas_batch = preprocessor.batchnize(train_datas_idx, train_datas, args.batch_size)
-        for idx, batch in enumerate(train_datas_batch):
+        for idx, batch in enumerate(batchnize(train_datas_idx, train_datas, args.batch_size)):
             
             # initialize data
             feed_dict = {
@@ -173,7 +172,7 @@ def main(args):
             # print(logits)
             # print loss 
             if (idx+1) % args.display_interval == 0:
-                logging.warning("( {} / {} ) cross entropy = {} , acc = {}".format(idx+1, len(train_datas_batch), loss, acc))
+                logging.warning("idx : {} , cross entropy = {} , acc = {}".format(idx+1, loss, acc))
                 # cal_num = 0
                 # total_loss = 0
                 # acc = 0
