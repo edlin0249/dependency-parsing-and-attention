@@ -14,10 +14,10 @@ class DataLoader(object):
             data_dir (string) : Data directory
         """
         self.data_dir = data_dir
-        self.data_file = self.data_dir + '/multinli_0.9_train.jsonl'
+        # self.data_file = self.data_dir + '/multinli_0.9_train.jsonl'
         
 
-    def load(self):
+    def load(self, filename):
         """
         The function to load data from multinli_0.9_train.jsonl
 
@@ -25,8 +25,9 @@ class DataLoader(object):
             datas (list): a list of dict
 
         """
+        data_file = self.data_dir + filename
         datas = []
-        with jsonlines.open(self.data_file, 'r') as reader:
+        with jsonlines.open(data_file, 'r') as reader:
             for obj in reader:
                 datas.append(obj)
 

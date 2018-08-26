@@ -1,6 +1,3 @@
-PAD_idx = 0
-PAD_token = '<PAD>'
-
 class Voc:
     """
     This is a constructor for building Voc 
@@ -9,7 +6,11 @@ class Voc:
         """
         This funciton to initialize constructor for Voc
         """
-        self.idx_token = [PAD_token]
+        self.PAD_idx = 0
+        self.UNK_idx = 1
+        self.PAD_token = '<PAD>'
+        self.UNK_token = '<UNK>'
+        self.idx_token = [self.PAD_token, self.UNK_token]
 
     def build_idx2tok(self, tokens):
         """

@@ -3,7 +3,7 @@ from Voc import Voc
 
 class Preprocessor:
     """
-    This is a class for preprocessor
+    This is a class ror preprocessor
     """
     def __init__(self, dpTree, voc, max_text_length):
         """
@@ -31,7 +31,10 @@ class Preprocessor:
         tokens = self.dpTree.tokenize(line)
         idxofsent = [0]*self.max_text_length
         for idx_t, token in enumerate(tokens):
-            idxofsent[idx_t] = self.voc.token_idx[token]
+            if token in self.voc.token_idx:
+                idxofsent[idx_t] = self.voc.token_idx[token]
+            else:
+                idxofsent[idx_t] = self.voc.token_idx[self.voc.UNK_token]
         return idxofsent
 
     def ordersent2idx(self, line, line_idx):
@@ -51,7 +54,10 @@ class Preprocessor:
             order_toks.append(tokens[idx])
         idxofsent = [0]*self.max_text_length
         for idx_t, token in enumerate(order_toks):
-            idxofsent[idx_t] = self.voc.token_idx[token]
+            if token in self.voc.token_idx:
+                idxofsent[idx_t] = self.voc.token_idx[token]
+            else:
+                idxofsent[idx_t] = self.voc.token_idx[self.voc.UNK_token]
         return idxofsent
 
     def order2sentidx(self, line_idx):
