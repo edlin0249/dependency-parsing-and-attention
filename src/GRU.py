@@ -297,7 +297,7 @@ class GRURNN(object):
         """
         # Calculate mean cross-entropy loss
         with tf.name_scope("loss"):
-            self.cross_entropy = tf.reduce_sum(tf.nn.softmax_cross_entropy_with_logits(logits=self.logits, labels=self.labels))
+            self.cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=self.logits, labels=self.labels))
             # self.cross_entropy = tf.reduce_mean(-tf.reduce_sum(self.labels*tf.log(tf.clip_by_value(self.logits,1e-10,1.0)),1))
             # self.cross_entropy = tf.reduce_mean(-tf.reduce_sum(self.labels*tf.log(self.logits),1))
             tf.summary.scalar('loss', self.cross_entropy)

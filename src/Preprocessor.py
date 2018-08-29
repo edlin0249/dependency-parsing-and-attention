@@ -89,8 +89,8 @@ class Preprocessor:
 
         """
 
-        label_idx = {'entailment':0, 'neutral':1, 'contradiction':2}
-        onehots = [0]*len(label_idx)
+        label_idx = {'entailment':0, 'neutral':1, 'contradiction':2, '-':1}
+        onehots = [0]*3
         onehots[label_idx[labels]] = 1
         return onehots
 
