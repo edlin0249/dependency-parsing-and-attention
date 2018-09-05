@@ -12,6 +12,7 @@ import tqdm
 import numpy as np 
 import random
 import logging
+import pdb
 # from tensorflow.python import debug as tf_debug
 
 def CalculateLength(line, dpTree):
@@ -58,6 +59,7 @@ def train(args):
         pairs_label = dataset.sent2pairs_label(datas)
         max_text_length = max([CalculateLength(item[0], dpTree) for item in pairs_label] + [CalculateLength(item[1], dpTree) for item in pairs_label] + [max_text_length])
 
+    print('max_text_length = %d'%(max_text_length))
     # preparing training set
 
     datas = dataset.load(args.train_data_file_name)
@@ -88,7 +90,8 @@ def train(args):
 
 
     voc.build_tok2idx()
-
+    print('voc size = %d'%(len(voc)))
+    pdb.set_trace()
     #preprocess suitable input
     preprocessor = Preprocessor(dpTree, voc, max_text_length)
     train_datas = []

@@ -2,8 +2,7 @@ class CES(object):
     """
     This is a class for child enriched structure(CES)
     """
-    @classmethod
-    def __call__(cls, dependency):
+    def __call__(self, dependency):
         """child enriched structure(CES)
         Args: 
             dependency : a list of (dependency, token_num, token_num)
@@ -21,17 +20,17 @@ class CES(object):
         all_preorder = []
         for idx_root in range(len(n_roots)):
             if idx_root == len(n_roots)-1:
-                preorder_list = cls.preorder(dependency[n_roots[idx_root]:], 0)
+                preorder_list = self.preorder(dependency[n_roots[idx_root]:], 0)
             else:
-                preorder_list = cls.preorder(dependency[n_roots[idx_root]:n_roots[idx_root+1]-1], 0)
+                preorder_list = self.preorder(dependency[n_roots[idx_root]:n_roots[idx_root+1]-1], 0)
             preorder_list = preorder_list[1:]
             len_all_preorder = len(all_preorder)
             for ele in preorder_list:
                 all_preorder.append(len_all_preorder+(ele-1))    # revert indexes of dependency parsing trees to ones of original texts 
         return all_preorder
 
-    @classmethod
-    def preorder(cls, dependency, root): 
+  
+    def preorder(self, dependency, root): 
         """preorder by DFS
         Args:
             dependency : a sublist of primary dependency
@@ -55,7 +54,7 @@ class CES(object):
         traversal = [root]
         for item in dependency:
             if item[1] == root:
-                traversal += cls.preorder(dependency, item[2])
+                traversal += self.preorder(dependency, item[2])
         return traversal   # return children
 
 

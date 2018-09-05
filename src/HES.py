@@ -2,8 +2,7 @@ class HES(object):
     """
     This is  a class for head enriched structure(HES) 
     """
-    @classmethod
-    def __call__(cls, dependency):
+    def __call__(self, dependency):
         """head enriched structure(HES)
         Args: 
             dependency : a list of (dependency, token_num, token_num)
@@ -21,17 +20,16 @@ class HES(object):
         all_postorder = []
         for idx_root in range(len(n_roots)):
             if idx_root == len(n_roots)-1:
-                postorder_list = cls.postorder(dependency[n_roots[idx_root]:], 0)
+                postorder_list = self.postorder(dependency[n_roots[idx_root]:], 0)
             else:
-                postorder_list = cls.postorder(dependency[n_roots[idx_root]:n_roots[idx_root+1]-1], 0)
+                postorder_list = self.postorder(dependency[n_roots[idx_root]:n_roots[idx_root+1]-1], 0)
             postorder_list = postorder_list[:-1]
             len_all_postorder = len(all_postorder)
             for ele in postorder_list:
                 all_postorder.append(len_all_postorder+(ele-1))       # revert indexes of dependency parsing trees to ones of original texts
         return all_postorder
 
-    @classmethod
-    def postorder(cls, dependency, root):
+    def postorder(self, dependency, root):
         """postorder by DFS
         Args:
             dependency : a sublist of primary dependency
@@ -55,7 +53,7 @@ class HES(object):
         traversal = []
         for item in dependency:
             if item[1] == root:
-                traversal += cls.postorder(dependency, item[2])
+                traversal += self.postorder(dependency, item[2])
         traversal += [root]
         return traversal    # return children  
 
